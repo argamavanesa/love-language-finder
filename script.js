@@ -284,14 +284,40 @@ function initDashboard() {
     }
 }
 
+// Variabel global untuk menyimpan data terakhir agar bisa di-render ulang saat resize
+let currentMajor = "";
+let currentData = {};
+
 function updateChart(majorName, dataObj) {
+    // Simpan data saat ini untuk keperluan resize
+    currentMajor = majorName;
+    currentData = dataObj;
+
     const ctx = document.getElementById('llChart').getContext('2d');
     
-    // Data Labels & Values
-    const labels = Object.keys(dataObj);
+    // 1. DETEKSI UKURAN LAYAR (RESPONSIVE LOGIC)
+    const isMobile = window.innerWidth < 768; // Anggap HP jika lebar < 768px
+
+    // 2. TENTUKAN STYLE BERDASARKAN DEVICE
+    const fontSize = isMobile ? 10 : 13; // Font kecil di HP, besar di Desktop
+    
+    // 3. OLAH LABEL (1 Baris untuk Desktop, 2 Baris untuk HP)
+    const rawLabels = Object.keys(dataObj);
     const dataValues = Object.values(dataObj);
 
-    // Hancurkan grafik lama jika ada (agar tidak menumpuk)
+    const responsiveLabels = rawLabels.map(label => {
+        if (!isMobile) return label; // Desktop: Tetap 1 baris ("Words of Affirmation")
+
+        // Mobile: Pecah jadi 2 baris
+        if (label === "Words of Affirmation") return ["Words of", "Affirmation"];
+        if (label === "Quality Time") return ["Quality", "Time"];
+        if (label === "Acts of Service") return ["Acts of", "Service"];
+        if (label === "Receiving Gifts") return ["Receiving", "Gifts"];
+        if (label === "Physical Touch") return ["Physical", "Touch"];
+        return label.split(" ");
+    });
+
+    // Hancurkan grafik lama
     if (myChart) {
         myChart.destroy();
     }
@@ -300,40 +326,75 @@ function updateChart(majorName, dataObj) {
     myChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: labels,
+            labels: responsiveLabels,
             datasets: [{
-                label: `Jumlah Mahasiswa ${majorName}`,
+                label: `Jumlah Mahasiswa`,
                 data: dataValues,
                 backgroundColor: [
-                    '#FFADAD', // Words
-                    '#FFD6A5', // Quality Time
-                    '#FDFFB6', // Acts
-                    '#CAFFBF', // Gifts
-                    '#9BF6FF'  // Touch
+                    '#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'
                 ],
                 borderColor: '#FFC2D1',
-                borderWidth: 1,
-                borderRadius: 8
+                borderWidth: 2,
+                borderRadius: isMobile ? 6 : 10, // Bar lebih kotak di HP
+                barPercentage: isMobile ? 0.7 : 0.6 // Bar lebih gemuk di HP biar mudah dilihat
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
+            animation: {
+                duration: 500 // Animasi lebih cepat biar responsif
+            },
             scales: {
+                x: {
+                    ticks: {
+                        font: {
+                            size: fontSize,
+                            family: "'Poppins', sans-serif"
+                        },
+                        autoSkip: false,
+                        maxRotation: 0,
+                        minRotation: 0
+                    }
+                },
                 y: {
                     beginAtZero: true,
-                    ticks: { stepSize: 1 } // Agar angka sumbu Y bulat (tidak desimal)
+                    ticks: {
+                        stepSize: 1,
+                        font: { size: fontSize, family: "'Poppins', sans-serif" }
+                    }
                 }
             },
             plugins: {
-                legend: { display: false }, // Sembunyikan legenda kotak kecil di atas
+                legend: { display: false },
+                tooltip: {
+                    titleFont: { size: 14 },
+                    bodyFont: { size: 14 },
+                    padding: 10
+                },
                 title: {
                     display: true,
-                    text: `Distribusi Love Language: ${majorName}`,
-                    font: { size: 16 }
+                    text: isMobile ? `Distribusi: ${majorName}` : `Statistika Love Language Jurusan ${majorName}`,
+                    font: {
+                        size: isMobile ? 14 : 18, // Judul lebih besar di Desktop
+                        family: "'Poppins', sans-serif",
+                        weight: '600'
+                    },
+                    color: '#D63384',
+                    padding: { bottom: 20 }
                 }
             }
         }
     });
 }
+
+// --- EVENT LISTENER UNTUK RESIZE ---
+// Ini agar saat layar diputar (landscape/portrait) atau browser di-resize, grafik menyesuaikan diri
+window.addEventListener('resize', () => {
+    if (currentMajor && currentData) {
+        // Panggil ulang fungsi updateChart dengan data terakhir
+        updateChart(currentMajor, currentData);
+    }
+});
+
 
