@@ -183,13 +183,33 @@ searchBtn.addEventListener('click', findStudent);
 npmInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') findStudent(); });
 
 function findStudent() {
+    // 1. Ambil input dan bersihkan spasi di awal/akhir
     const inputNpm = npmInput.value.trim();
+    
+    // 2. Bersihkan container hasil
     resultContainer.innerHTML = '';
 
-    const student = students.find(s => s.npm === inputNpm);
+    if (!inputNpm) {
+        alert("Mohon masukkan NPM!");
+        return;
+    }
+
+    // 3. LOGIC BARU: Pencarian yang lebih fleksibel
+    // Kita pastikan data NPM di database & input sama-sama dianggap String
+    const student = students.find(s => String(s.npm).trim() === String(inputNpm));
 
     if (student) {
-        const content = llData[student.type] || llData["Quality Time"]; // Fallback if type not exact match
+        // --- KODE SAMA SEPERTI SEBELUMNYA ---
+        // Gunakan logika fallback jika tipe love language tidak persis sama huruf besar/kecilnya
+        let typeKey = student.type;
+        // Cek apakah key ada di llData, jika tidak, cari yang mirip atau default
+        if (!llData[typeKey]) {
+            // Coba cari case-insensitive
+            const foundKey = Object.keys(llData).find(k => k.toLowerCase() === typeKey.toLowerCase());
+            typeKey = foundKey || "Quality Time"; // Default ke Quality Time jika error
+        }
+
+        const content = llData[typeKey]; 
         
         // Generate Progress Bars
         const percentagesHTML = Object.entries(student.percentages).map(([key, val]) => `
@@ -238,8 +258,12 @@ function findStudent() {
                 </div>
             </div>
         `;
+        
+        // Fitur Tambahan: Scroll otomatis ke hasil (bagus untuk HP)
+        resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
     } else {
-        resultContainer.innerHTML = `<p class="error-msg">NPM ${inputNpm} tidak ditemukan.</p>`;
+        resultContainer.innerHTML = `<p class="error-msg">NPM <strong>${inputNpm}</strong> tidak ditemukan. Coba periksa kembali.</p>`;
     }
 }
 
@@ -281,4 +305,5 @@ function renderDashboard() {
     }
     html += '</div>';
     dashboardContainer.innerHTML = html;
+
 }
