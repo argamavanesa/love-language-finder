@@ -172,22 +172,29 @@ const students = [
     {"npm": "2406408325", "name": "Firdha Nazla Soblia", "major": "Matematika", "type": "Acts of Service", "percentages": {"Words of Affirmation": "30%", "Quality Time": "30%", "Acts of Service": "40%", "Receiving Gifts": "0%", "Physical Touch": "0%"}}
 ];
 
-// --- LOGIC ---
+// ... (Pastikan llData dan students ada di atas kode ini) ...
+
+// --- LOGIC UTAMA (REVISI PIE CHART & DASHBOARD GLOBAL) ---
 const searchBtn = document.getElementById('searchBtn');
 const npmInput = document.getElementById('npmInput');
 const resultContainer = document.getElementById('resultContainer');
 const majorTabs = document.getElementById('majorTabs');
-let myChart = null; // Variabel untuk menyimpan instance grafik
+
+// Variabel untuk menyimpan instance chart agar bisa di-reset/update
+let dashboardChart = null; 
+let userPieChart = null;
+let currentMajor = "";
+let currentData = {};
 
 // Init Dashboard on Load
 document.addEventListener('DOMContentLoaded', () => {
-    initDashboard(); // Jalankan dashboard grafik
+    initDashboard(); 
 });
 
 searchBtn.addEventListener('click', findStudent);
 npmInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') findStudent(); });
 
-// --- FUNGSI PENCARIAN (Tetap Sama) ---
+// --- 1. FUNGSI PENCARIAN (DENGAN PIE CHART) ---
 function findStudent() {
     const inputNpm = npmInput.value.trim();
     resultContainer.innerHTML = '';
@@ -207,18 +214,10 @@ function findStudent() {
         }
         const content = llData[typeKey]; 
         
-        const percentagesHTML = Object.entries(student.percentages).map(([key, val]) => `
-            <div class="progress-item">
-                <div class="progress-label"><span>${key}</span><span>${val}</span></div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: ${val}; background-color: var(--primary-color);"></div>
-                </div>
-            </div>
-        `).join('');
-
         const needsList = content.needs.map(item => `<li>${item}</li>`).join('');
         const recList = content.recommendations.map(item => `<li>${item}</li>`).join('');
 
+        // Inject HTML (Progress bar diganti Canvas Pie Chart)
         resultContainer.innerHTML = `
             <div class="card">
                 <div class="student-info">
@@ -226,12 +225,20 @@ function findStudent() {
                     <span class="major">${student.major}</span>
                 </div>
                 <h2 class="ll-title">${content.title}</h2>
-                <div class="progress-section">${percentagesHTML}</div>
+                
+                <div class="user-chart-container">
+                    <canvas id="userLoveChart"></canvas>
+                </div>
+
                 <div class="section-block"><h3>Gambaran Umum</h3><p>${content.overview}</p></div>
                 <div class="section-block"><h3>Yang Kamu Butuhkan</h3><ul>${needsList}</ul></div>
                 <div class="section-block"><h3>Rekomendasi</h3><ul>${recList}</ul></div>
             </div>
         `;
+        
+        // Render Pie Chart setelah HTML masuk ke halaman
+        renderUserPieChart(student.percentages);
+        
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     } else {
@@ -239,12 +246,54 @@ function findStudent() {
     }
 }
 
-// --- FUNGSI DASHBOARD & CHART (BARU) ---
+function renderUserPieChart(percentages) {
+    const ctx = document.getElementById('userLoveChart').getContext('2d');
+    
+    // Konversi data "25%" string menjadi angka 25
+    const labels = Object.keys(percentages);
+    const dataValues = Object.values(percentages).map(val => parseInt(val.replace('%', '')));
+
+    if (userPieChart) userPieChart.destroy(); // Hapus chart lama jika ada
+
+    userPieChart = new Chart(ctx, {
+        type: 'pie',
+        data: {
+            labels: labels,
+            datasets: [{
+                data: dataValues,
+                backgroundColor: ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'],
+                borderColor: '#fff',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: { font: { family: "'Poppins', sans-serif", size: 12 }, boxWidth: 12 }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return ` ${context.label}: ${context.raw}%`;
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// --- 2. FUNGSI DASHBOARD (DENGAN "SEMUA JURUSAN") ---
 function initDashboard() {
-    // 1. Hitung Statistik per Jurusan
+    // Siapkan wadah statistik
     const stats = {};
+    const globalStats = { "Words of Affirmation": 0, "Quality Time": 0, "Acts of Service": 0, "Receiving Gifts": 0, "Physical Touch": 0 };
     const allMajors = [];
 
+    // Hitung data
     students.forEach(s => {
         const major = s.major;
         const type = s.type;
@@ -253,62 +302,65 @@ function initDashboard() {
             stats[major] = { "Words of Affirmation": 0, "Quality Time": 0, "Acts of Service": 0, "Receiving Gifts": 0, "Physical Touch": 0 };
             allMajors.push(major);
         }
-        // Normalisasi nama tipe love language agar cocok dengan key
+        
+        // Normalisasi key (mencegah error huruf besar/kecil)
         let cleanType = Object.keys(stats[major]).find(k => k.toLowerCase() === type.toLowerCase());
-        if(cleanType) stats[major][cleanType]++;
+        
+        if(cleanType) {
+            stats[major][cleanType]++;     // Tambah ke jurusan
+            globalStats[cleanType]++;      // Tambah ke global
+        }
     });
 
-    // 2. Buat Tab Tombol Jurusan
-    // Hapus duplikat jurusan jika ada
+    // Urutkan Jurusan
     const uniqueMajors = [...new Set(allMajors)].sort();
-    
-    uniqueMajors.forEach((major, index) => {
+
+    // 1. Buat Tombol "SEMUA JURUSAN" (Global)
+    const btnGlobal = document.createElement('button');
+    btnGlobal.innerText = "Semua Jurusan";
+    btnGlobal.className = 'tab-btn active'; // Default aktif
+    btnGlobal.onclick = () => {
+        switchTab(btnGlobal, "Semua Jurusan", globalStats);
+    };
+    majorTabs.appendChild(btnGlobal);
+
+    // 2. Buat Tombol Per Jurusan
+    uniqueMajors.forEach(major => {
         const btn = document.createElement('button');
         btn.innerText = major;
         btn.className = 'tab-btn';
-        if (index === 0) btn.classList.add('active'); // Tombol pertama aktif default
-        
         btn.onclick = () => {
-            // Ganti kelas aktif
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            // Update Grafik
-            updateChart(major, stats[major]);
+            switchTab(btn, major, stats[major]);
         };
         majorTabs.appendChild(btn);
     });
 
-    // 3. Render Grafik Pertama Kali (Jurusan Pertama)
-    if (uniqueMajors.length > 0) {
-        updateChart(uniqueMajors[0], stats[uniqueMajors[0]]);
-    }
+    // Render Grafik Awal (Global)
+    updateDashboardChart("Semua Jurusan", globalStats);
 }
 
-// Variabel global untuk menyimpan data terakhir agar bisa di-render ulang saat resize
-let currentMajor = "";
-let currentData = {};
+function switchTab(btnElement, title, data) {
+    // Reset class active
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+    // Update Chart
+    updateDashboardChart(title, data);
+}
 
-function updateChart(majorName, dataObj) {
-    // Simpan data saat ini untuk keperluan resize
+// Fungsi Update Chart Dashboard (Bar Chart)
+function updateDashboardChart(majorName, dataObj) {
     currentMajor = majorName;
     currentData = dataObj;
 
     const ctx = document.getElementById('llChart').getContext('2d');
-    
-    // 1. DETEKSI UKURAN LAYAR (RESPONSIVE LOGIC)
-    const isMobile = window.innerWidth < 768; // Anggap HP jika lebar < 768px
+    const isMobile = window.innerWidth < 768;
+    const fontSize = isMobile ? 10 : 13;
 
-    // 2. TENTUKAN STYLE BERDASARKAN DEVICE
-    const fontSize = isMobile ? 10 : 13; // Font kecil di HP, besar di Desktop
-    
-    // 3. OLAH LABEL (1 Baris untuk Desktop, 2 Baris untuk HP)
+    // Responsive Label (Multiline)
     const rawLabels = Object.keys(dataObj);
     const dataValues = Object.values(dataObj);
-
     const responsiveLabels = rawLabels.map(label => {
-        if (!isMobile) return label; // Desktop: Tetap 1 baris ("Words of Affirmation")
-
-        // Mobile: Pecah jadi 2 baris
+        if (!isMobile) return label;
         if (label === "Words of Affirmation") return ["Words of", "Affirmation"];
         if (label === "Quality Time") return ["Quality", "Time"];
         if (label === "Acts of Service") return ["Acts of", "Service"];
@@ -317,84 +369,45 @@ function updateChart(majorName, dataObj) {
         return label.split(" ");
     });
 
-    // Hancurkan grafik lama
-    if (myChart) {
-        myChart.destroy();
-    }
+    if (dashboardChart) dashboardChart.destroy();
 
-    // Buat Grafik Baru
-    myChart = new Chart(ctx, {
+    dashboardChart = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: responsiveLabels,
             datasets: [{
-                label: `Jumlah Mahasiswa`,
+                label: 'Jumlah Mahasiswa',
                 data: dataValues,
-                backgroundColor: [
-                    '#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'
-                ],
+                backgroundColor: ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'],
                 borderColor: '#FFC2D1',
                 borderWidth: 2,
-                borderRadius: isMobile ? 6 : 10, // Bar lebih kotak di HP
-                barPercentage: isMobile ? 0.7 : 0.6 // Bar lebih gemuk di HP biar mudah dilihat
+                borderRadius: isMobile ? 6 : 10
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            animation: {
-                duration: 500 // Animasi lebih cepat biar responsif
-            },
             scales: {
-                x: {
-                    ticks: {
-                        font: {
-                            size: fontSize,
-                            family: "'Poppins', sans-serif"
-                        },
-                        autoSkip: false,
-                        maxRotation: 0,
-                        minRotation: 0
-                    }
-                },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1,
-                        font: { size: fontSize, family: "'Poppins', sans-serif" }
-                    }
-                }
+                x: { ticks: { font: { size: fontSize, family: "'Poppins', sans-serif" } } },
+                y: { beginAtZero: true, ticks: { stepSize: 1, font: { size: fontSize } } }
             },
             plugins: {
                 legend: { display: false },
-                tooltip: {
-                    titleFont: { size: 14 },
-                    bodyFont: { size: 14 },
-                    padding: 10
-                },
                 title: {
                     display: true,
-                    text: isMobile ? `Distribusi: ${majorName}` : `Statistika Love Language Jurusan ${majorName}`,
-                    font: {
-                        size: isMobile ? 14 : 18, // Judul lebih besar di Desktop
-                        family: "'Poppins', sans-serif",
-                        weight: '600'
-                    },
-                    color: '#D63384',
-                    padding: { bottom: 20 }
+                    text: `Statistik: ${majorName}`,
+                    font: { size: isMobile ? 14 : 18, family: "'Poppins', sans-serif" },
+                    color: '#D63384'
                 }
             }
         }
     });
 }
 
-// --- EVENT LISTENER UNTUK RESIZE ---
-// Ini agar saat layar diputar (landscape/portrait) atau browser di-resize, grafik menyesuaikan diri
+// Auto Resize Listener
 window.addEventListener('resize', () => {
-    if (currentMajor && currentData) {
-        // Panggil ulang fungsi updateChart dengan data terakhir
-        updateChart(currentMajor, currentData);
-    }
+    if (currentMajor && currentData) updateDashboardChart(currentMajor, currentData);
 });
+
 
 
