@@ -274,4 +274,11 @@ button#searchBtn:hover { opacity: 0.9; transform: translateY(-2px); }
        agar Legend di bawahnya tidak terpotong/sempit */
     .user-chart-container { height: 380px; } 
 }
-
+/* Tambahkan di style.css */
+.description-text p {
+    text-align: justify;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: var(--text-gray);
+    margin-top: 20px;
+}
