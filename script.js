@@ -1,44 +1,24 @@
-// --- DATABASE 1: DESKRIPSI LOVE LANGUAGE ---
+// --- DATABASE 1: DESKRIPSI LOVE LANGUAGE (REVISI PARAGRAF) ---
 const llData = {
     "Words of Affirmation": {
         title: "🌟 Words of Affirmation",
-        overview: "Kamu sangat peka terhadap kata-kata. Ucapan apresiasi, pengakuan usaha, atau kalimat penyemangat berdampak besar bagi motivasimu.",
-        howToShow: "Kamu mengekspresikan kepedulian lewat pujian, ucapan terima kasih, dan validasi verbal.",
-        needs: ["Apresiasi yang tulus & jelas.", "Feedback positif atas usaha.", "Pengakuan verbal."],
-        recommendations: ["Lingkungan yang terbuka terhadap pujian.", "Komunikasi afirmatif dalam kelompok."],
-        sources: [{ text: "Gardner (2003) - Effort-focused praise", link: "#" }]
+        description: "Kamu adalah orang yang membutuhkan kata-kata positif dari orang terdekat untuk tetap semangat menjalani hari! Kata-kata penyemangat dari orang terdekat adalah salah satu kekuatan untuk menghadapi keterpurukan kamu. Ketika kamu berhasil menyelesaikan suatu pekerjaan atau berhasil mencapai sesuatu, pujian dari teman terdekat akan membuat kamu semakin bersemangat. Selalu optimis dengan kata-kata afirmatif ketika mengerjakan tugas bersama teman akan sangat mendorong semangat kamu dan orang terdekat kamu!"
     },
     "Quality Time": {
         title: "⏰ Quality Time",
-        overview: "Bagi kamu, kehadiran penuh tanpa distraksi adalah segalanya. Kamu merasa terhubung saat berdiskusi atau belajar bersama dengan fokus.",
-        howToShow: "Kamu meluangkan waktu khusus, mendengarkan, dan hadir secara utuh.",
-        needs: ["Waktu khusus tanpa distraksi.", "Teman diskusi yang hadir penuh.", "Kebersamaan dalam proses."],
-        recommendations: ["Sesi belajar rutin.", "Interaksi langsung tatap muka."],
-        sources: [{ text: "ScienceDirect (2023) - Study-together groups", link: "#" }]
+        description: "Kamu adalah orang yang butuh kehadiran penuh dan perhatian yang tidak terbagi dari orang terdekat dalam suatu interaksi! Menyusun rencana bepergian dengan teman terdekat adalah salah satu sumber kesenanganmu. Tak hanya itu, sebatas obrolan santai dengan cerita kamu didengar secara saksama oleh teman terdekat akan membuat kamu merasa sangat dihargai. Belajar bersama dan menyelesaikan tugas bersama teman terdekat akan sangat menyenangkan untuk kamu lakukan!"
     },
     "Acts of Service": {
         title: "🤝 Acts of Service",
-        overview: "Kamu merasa dihargai lewat tindakan nyata. Bantuan konkret yang meringankan beban lebih berarti daripada sekadar kata-kata manis.",
-        howToShow: "Kamu refleks membantu saat melihat orang kesulitan. Kamu suka memberi solusi praktis.",
-        needs: ["Bantuan langsung & konkret.", "Inisiatif tanpa diminta.", "Dukungan tenaga."],
-        recommendations: ["Kerja tim yang saling membantu.", "Sistem peer tutoring."],
-        sources: [{ text: "MDPI (2025) - Peer support", link: "#" }]
+        description: "Kamu adalah orang yang merasa dihargai ketika ada orang terdekat yang menolong kamu saat kesulitan! Ketika sedang kesulitan dalam belajar, kamu akan merasa sangat senang jika ada teman terdekat yang membantu menjelaskan materi kepada kamu. Begitu pun juga saat mengerjakan tugas kelompok atau project, kontribusi nyata teman yang inisiatif dan solutif akan membuat kamu merasa dihargai. Usaha kamu dalam membantu teman kamu yang sedang kesulitan akan mempererat hubungan pertemanan kamu untuk jangka waktu panjang!"
     },
     "Receiving Gifts": {
         title: "🎁 Receiving Gifts",
-        overview: "Perhatian bagimu terasa lewat simbol. Hadiah kecil atau benda yang menunjukkan 'aku kepikiran kamu' sangat berarti.",
-        howToShow: "Kamu suka memberi hadiah kecil atau simbol kepedulian pada momen spesial.",
-        needs: ["Hadiah kecil yang personal.", "Simbol apresiasi atas usaha.", "Kejutan sederhana."],
-        recommendations: ["Apresiasi simbolis (sertifikat/hadiah kecil).", "Lingkungan yang kreatif memberi reward."],
-        sources: [{ text: "Univ Arizona - Brain science of gifts", link: "#" }]
+        description: "Kamu adalah orang yang merasa disayangi ketika ada orang terdekat yang memberikan hadiah atau kenangan kecil kepada kamu! Kamu merasa senang ketika mendapat hadiah dari teman terdekat untuk disimpan dan dikenang di kemudian hari. Kejutan kecil yang disiapkan oleh teman terdekat ketika hari spesial kamu juga berkesan untuk kamu. Teman terdekat kamu akan sangat senang dan termotivasi saat diberi pernak-pernik atau aksesoris oleh kamu untuk digunakan setiap hari!"
     },
     "Physical Touch": {
         title: "🤍 Physical Touch",
-        overview: "Kamu merasa terhubung lewat gestur fisik yang aman seperti tos, tepukan bahu, atau jabat tangan yang menguatkan.",
-        howToShow: "Kamu menggunakan bahasa tubuh (tos, tepukan) untuk memberi semangat.",
-        needs: ["Sentuhan ringan yang pantas (tos/high-five).", "Rasa kebersamaan fisik.", "Menghormati batas kenyamanan."],
-        recommendations: ["Lingkungan hangat & tidak kaku.", "Gestur fisik pereda stres."],
-        sources: [{ text: "PMC (2024) - Affective touch", link: "#" }]
+        description: "Kamu adalah orang yang merasa disayangi ketika mendapat dukungan sentuhan fisik yang hangat dari orang terdekat! Pelukan hangat dari orang terdekat ketika kamu sedang terpuruk adalah suatu hal yang kamu butuhkan. Ketika berhasil menyelesaikan suatu pekerjaan, tepukan bahu atau jabat tangan dari teman terdekat adalah salah satu cara kamu merasa dihargai. Mungkin tidak semuanya nyaman untuk melakukan kontak fisik, tetapi sentuhan kecil seperti tos akan membuat orang sekitar kamu merasa dihargai!"
     }
 };
 
@@ -195,6 +175,12 @@ searchBtn.addEventListener('click', findStudent);
 npmInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') findStudent(); });
 
 // --- 1. FUNGSI PENCARIAN (PIE CHART RESPONSIVE) ---
+// ... (Biarkan const students = [...] TETAP ADA DI SINI, JANGAN DIHAPUS) ...
+
+
+// --- LOGIC UTAMA (UPDATE TAMPILAN) ---
+// ... (Kode elemen DOM tetap sama) ...
+
 function findStudent() {
     const inputNpm = npmInput.value.trim();
     resultContainer.innerHTML = '';
@@ -208,30 +194,30 @@ function findStudent() {
 
     if (student) {
         let typeKey = student.type;
+        // Fallback jika ada perbedaan penulisan huruf besar/kecil
         if (!llData[typeKey]) {
             const foundKey = Object.keys(llData).find(k => k.toLowerCase() === typeKey.toLowerCase());
             typeKey = foundKey || "Quality Time";
         }
         const content = llData[typeKey]; 
         
-        const needsList = content.needs.map(item => `<li>${item}</li>`).join('');
-        const recList = content.recommendations.map(item => `<li>${item}</li>`).join('');
-
+        // Inject HTML (Hanya menampilkan Judul, Pie Chart, dan Deskripsi Paragraf)
         resultContainer.innerHTML = `
             <div class="card">
                 <div class="student-info">
                     <h2>${student.name}</h2>
                     <span class="major">${student.major}</span>
                 </div>
+                
                 <h2 class="ll-title">${content.title}</h2>
                 
                 <div class="user-chart-container">
                     <canvas id="userLoveChart"></canvas>
                 </div>
 
-                <div class="section-block"><h3>Gambaran Umum</h3><p>${content.overview}</p></div>
-                <div class="section-block"><h3>Yang Kamu Butuhkan</h3><ul>${needsList}</ul></div>
-                <div class="section-block"><h3>Rekomendasi</h3><ul>${recList}</ul></div>
+                <div class="section-block description-text">
+                    <p>${content.description}</p>
+                </div>
             </div>
         `;
         
@@ -439,6 +425,7 @@ window.addEventListener('resize', () => {
 window.addEventListener('resize', () => {
     if (currentMajor && currentData) updateDashboardChart(currentMajor, currentData);
 });
+
 
 
 
