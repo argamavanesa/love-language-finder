@@ -1,6 +1,6 @@
 /* --- KONFIGURASI WARNA & FONT --- */
 :root {
-    --bg-color: #FFF0F5;       /* Background Pink Lembut */
+    --bg-color: #FFE1EC;       /* Background Pink Lembut (lebih gelap) */
     --primary-color: #D63384;  /* Pink Tua (Warna Utama) */
     --accent-color: #FF8FAB;   /* Pink Muda (Aksen) */
     --text-dark: #333333;      /* Teks Gelap */
@@ -23,9 +23,86 @@ body {
     padding: 40px 20px;
 }
 
-.container {
-    max-width: 700px; /* Lebar konten maksimal */
+/* --- NAVBAR (Top bar with upload placeholder) --- */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
+    background: var(--card-bg);
+    padding: 12px 24px;
+    border-radius: 0 0 12px 12px;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(0,0,0,0.04);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    z-index: 50;
+}
+
+.nav-left { display: flex; align-items: center; gap: 12px; }
+
+.logo-upload { display: inline-flex; align-items: center; cursor: pointer; }
+
+.logo-placeholder {
+    width: 48px;
+    height: 48px;
+    border-radius: 10px;
+    background: #ffffff; /* ensure consistent white background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--primary-color);
+    font-weight: 700;
+    border: 1px solid rgba(214,51,132,0.08);
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.6);
+    font-size: 0.78rem;
+    overflow: hidden;
+}
+
+.logo-placeholder img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    background: transparent;
+}
+
+.nav-brand-text {
+    font-family: var(--font-main);
+    font-weight: 700;
+    color: var(--text-dark);
+    color: var(--primary-color);
+    margin-left: 8px;
+    font-size: 0.98rem;
+    white-space: nowrap;
+}
+
+.nav-right { display: flex; gap: 10px; align-items: center; }
+
+.nav-btn {
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 0;
+    background: transparent;
+    color: var(--text-dark);
+    cursor: pointer;
+    font-weight: 600;
+    transition: background 0.18s, transform 0.08s;
+}
+
+.nav-btn:hover { transform: translateY(-2px); background: rgba(255,138,170,0.06); }
+
+.nav-btn.active { background: var(--primary-color); color: white; box-shadow: 0 6px 18px rgba(214,51,132,0.18); }
+
+/* Content offset so the fixed topbar doesn't overlap the container */
+.container {
+    max-width: 1400px; /* Lebar konten maksimal diperlebar untuk full space */
+    width: 100%;
+    margin-left: 0;
+    margin-top: 84px; /* space for topbar */
 }
 
 /* --- HEADER --- */
@@ -33,17 +110,118 @@ header { text-align: center; margin-bottom: 30px; }
 header h1 { color: var(--primary-color); margin-bottom: 10px; font-weight: 700; }
 header p { color: var(--text-gray); font-size: 0.95rem; }
 
+/* Finder placeholder text */
+.finder-placeholder {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.7), rgba(255, 240, 246, 0.7));
+    padding: 40px 30px;
+    border-radius: 24px;
+    box-shadow: 0 12px 30px rgba(214, 51, 132, 0.15);
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    animation: fadeIn 0.8s ease;
+}
+
+.finder-placeholder::before {
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: radial-gradient(circle, rgba(255, 143, 171, 0.25), transparent);
+    top: -50px;
+    right: -50px;
+}
+
+.finder-placeholder h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 1;
+}
+
+.finder-placeholder p {
+    font-size: 1rem;
+    color: var(--text-gray);
+    line-height: 1.8;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+}
+
+.finder-cta {
+    margin-top: 20px;
+    padding: 12px 26px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: 999px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+    position: relative;
+    z-index: 1;
+}
+
+.finder-cta:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(214, 51, 132, 0.3);
+}
+
+/* Home page specific header */
+.home-header { text-align: center; margin-bottom: 32px; }
+.home-header h1 { color: var(--primary-color); font-size: 1.8rem; font-weight: 700; margin: 0; margin-bottom: 16px; }
+
+/* Dashboard Description - Header paragraph */
+.dashboard-desc {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85), rgba(255, 240, 246, 0.6));
+    border: 1px solid rgba(255, 143, 171, 0.25);
+    border-radius: 16px;
+    padding: 20px 24px;
+    box-shadow: 0 4px 12px rgba(214, 51, 132, 0.08);
+    margin-top: 12px;
+}
+
+.dashboard-desc p {
+    color: var(--text-gray);
+    font-size: 0.95rem;
+    line-height: 1.75;
+    margin: 0;
+    letter-spacing: 0.3px;
+}
+
+.dashboard-desc-highlight {
+    color: var(--primary-color) !important;
+    font-size: 1rem !important;
+    margin-top: 12px !important;
+    padding: 12px 16px;
+    background: linear-gradient(90deg, rgba(255, 143, 171, 0.15), rgba(255, 240, 246, 0.2));
+    border-left: 4px solid var(--accent-color);
+    border-radius: 8px;
+}
+
+.dashboard-desc-highlight strong {
+    font-weight: 700;
+}
+
 /* --- SEARCH BOX --- */
 .search-box {
     display: flex;
     gap: 10px;
     margin-bottom: 30px;
+    background: white;
+    padding: 15px;
+    border-radius: 20px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
 }
 
 input {
     flex: 1;
     padding: 14px;
-    border: 2px solid #FFC2D1;
+    border: none;
+    background: #fff5f9;
     border-radius: 12px;
     outline: none;
     font-size: 1rem;
@@ -51,7 +229,10 @@ input {
     transition: border-color 0.3s;
 }
 
-input:focus { border-color: var(--primary-color); }
+input:focus {
+    background: white;
+    box-shadow: 0 0 0 3px rgba(214, 51, 132, 0.2);
+}
 
 button#searchBtn {
     padding: 14px 24px;
@@ -75,6 +256,12 @@ button#searchBtn:hover { opacity: 0.9; transform: translateY(-2px); }
     animation: slideUp 0.5s ease;
     margin-bottom: 40px;
     border: 1px solid #FFF;
+    transition: all 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 16px 40px rgba(214, 51, 132, 0.2);
 }
 
 .student-info {
@@ -95,7 +282,7 @@ button#searchBtn:hover { opacity: 0.9; transform: translateY(-2px); }
 }
 
 /* --- PROGRESS BARS (PERSENTASE) --- */
-.progress-section { margin: 25px 0; }
+.progress-section { margin: 25px 0; display: none; }
 .progress-item { margin-bottom: 12px; }
 
 .progress-label {
@@ -150,6 +337,25 @@ button#searchBtn:hover { opacity: 0.9; transform: translateY(-2px); }
     font-size: 1.4rem;
 }
 
+.dashboard-title::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: var(--accent-color);
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.finder-page {
+    background: linear-gradient(180deg, #ffe1ec 0%, #ffffff 60%);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
 /* Tabs Container (Tombol Jurusan) */
 .tabs-container {
     display: flex;
@@ -194,6 +400,76 @@ button#searchBtn:hover { opacity: 0.9; transform: translateY(-2px); }
     height: 400px; /* Tinggi pasti agar grafik tidak gepeng */
     position: relative;
     border: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+}
+
+/* Dashboard main layout: chart 70% + summary 30% */
+.dashboard-main {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    gap: 20px;
+    align-items: start;
+    margin-bottom: 20px;
+}
+
+.dashboard-left .chart-wrapper {
+    margin-bottom: 0;
+}
+
+.dashboard-right {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+/* Statistical Information Box */
+.stat-info {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--primary-color);
+    color: var(--text-dark);
+    line-height: 1.8;
+    font-size: 0.95rem;
+    margin-top: 0;
+}
+
+.insight-box {
+    background: white;
+    padding: 18px;
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+    border-left: 4px solid var(--accent-color);
+    color: var(--text-gray);
+    line-height: 1.6;
+    font-size: 0.92rem;
+}
+
+/* Reliability Badge */
+.reliability-badge {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 8px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    display: inline-block;
+    background: #f0f0f0;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    font-size: 0.9rem;
+}
+
+/* --- Tambahkan ini di bagian bawah style.css --- */
+
+/* Wadah Pie Chart di Kartu User */
+.user-chart-container {
+    position: relative;
+    height: 300px; /* Tinggi chart */
+    width: 100%;
+    margin: 20px 0;
+    display: flex;
+    justify-content: center;
 }
 
 /* --- UTILITIES --- */
@@ -211,4 +487,359 @@ button#searchBtn:hover { opacity: 0.9; transform: translateY(-2px); }
     header h1 { font-size: 1.5rem; }
     .chart-wrapper { height: 300px; } /* Grafik lebih pendek di HP */
     .tab-btn { padding: 8px 15px; font-size: 0.8rem; }
+}
+
+/* Responsive: collapse sidebar to top bar on small screens */
+@media (max-width: 900px) {
+    .navbar {
+        position: relative;
+        left: auto;
+        top: auto;
+        width: 100%;
+        max-width: 700px;
+        margin: 0 auto 18px auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 12px 16px;
+    }
+
+    /* Hide brand text on smaller screens to save space */
+    .nav-brand-text { display: none; }
+
+    .nav-btn { padding: 8px 12px; border-radius: 20px; }
+
+    .container { margin-left: 0; }
+
+    .dashboard-main {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    /* smaller adjustments for mobile */
+    .navbar { padding: 10px 12px; }
+    .nav-btn { font-size: 0.85rem; padding: 8px 10px; }
+}
+
+/* Floating hearts background — heart shape fix + increased visibility */
+.hearts {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+    z-index: 0; /* behind main UI */
+}
+.heart {
+    --size: 28px;
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    transform: rotate(-45deg);
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    opacity: 0.6;
+    top: 8%;
+    border-radius: 4px 4px 0 0;
+}
+.heart::before,
+.heart::after {
+    content: '';
+    position: absolute;
+    width: var(--size);
+    height: var(--size);
+    background: linear-gradient(135deg, var(--accent-color), var(--primary-color));
+    border-radius: 50%;
+}
+/* precise offsets to form a heart: top = -size/2, left for second = size/2 */
+.heart::before { top: calc(var(--size) / -2); left: 0; }
+.heart::after  { top: 0; left: calc(var(--size) / 2); }
+
+/* natural variation */
+/* Top section hearts */
+.heart:nth-child(1)  { --size: 44px; left: 6%;  top: 8%;  opacity: 0.65; }
+.heart:nth-child(2)  { --size: 30px; left: 18%; top: 14%; opacity: 0.55; }
+.heart:nth-child(3)  { --size: 36px; left: 30%; top: 10%; opacity: 0.6; }
+.heart:nth-child(4)  { --size: 52px; left: 44%; top: 5%;  opacity: 0.5; }
+.heart:nth-child(5)  { --size: 28px; left: 58%; top: 16%; opacity: 0.6; }
+.heart:nth-child(6)  { --size: 34px; left: 70%; top: 9%;  opacity: 0.55; }
+.heart:nth-child(7)  { --size: 32px; left: 82%; top: 12%; opacity: 0.58; }
+.heart:nth-child(8)  { --size: 24px; left: 36%; top: 22%; opacity: 0.6; }
+/* Bottom section hearts */
+.heart:nth-child(9)  { --size: 40px; left: 12%; top: 68%; opacity: 0.62; }
+.heart:nth-child(10) { --size: 26px; left: 48%; top: 75%; opacity: 0.58; }
+.heart:nth-child(11) { --size: 38px; left: 75%; top: 65%; opacity: 0.63; }
+.heart:nth-child(12) { --size: 22px; left: 90%; top: 72%; opacity: 0.57; }
+.heart:nth-child(13) { --size: 35px; left: 25%; top: 82%; opacity: 0.61; }
+.heart:nth-child(14) { --size: 28px; left: 60%; top: 80%; opacity: 0.59; }
+.heart:nth-child(15) { --size: 42px; left: 80%; top: 75%; opacity: 0.64; }
+
+/* ensure main UI sits above hearts */
+.container, .card, .chart-wrapper { position: relative; z-index: 2; }
+
+/* Header-side flip grid and flip-card styles */
+.home-header {
+    display: block; /* keep header stacked by default */
+    gap: 14px;
+    align-items: center;
+}
+
+/* Header flip grid: ensure 5 cards wrap and display centered */
+.header-flip-grid {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin: 30px 0;
+    padding: 0;
+}
+
+/* New layout: left column with two stacked cards, right row with three cards */
+.header-flip-grid .left-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    align-items: center;
+}
+
+.header-flip-grid .right-row {
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    margin-left: 0;
+    justify-content: center;
+}
+
+.header-flip-grid .left-stack {
+    justify-content: center;
+    align-items: center;
+}
+
+.flip-card {
+    width: 120px;
+    height: 120px;
+    perspective: 1000px;
+    flex: 0 0 auto;
+}
+
+/* Simple non-flip card used for static items */
+.simple-card {
+    flex: 1 1 200px; /* Flexible: grows/shrinks, min 200px */
+    max-width: 250px; /* Cap width for balanced spacing */
+    min-height: 180px;
+    background: white;
+    border-radius: 15px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+    color: var(--primary-color);
+}
+
+.card-btn {
+    margin-top: 8px;
+    padding: 8px 14px;
+    border-radius: 10px;
+    border: 1px solid rgba(214,51,132,0.15);
+    background: transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.card-btn:hover {
+    background: rgba(214,51,132,0.08);
+    transform: translateY(-2px);
+}
+
+.simple-card.expanded {
+    background: #fff;
+    box-shadow: 0 12px 28px rgba(214,51,132,0.12);
+    transform: translateY(-4px);
+}
+
+/* Hide placeholder images until uploaded */
+#logoImg1, #logoImg2 {
+    display: none;
+}
+
+#logoImg1[src], #logoImg2[src] {
+    display: block;
+}
+
+/* Responsive: 2 cards per row on mobile */
+@media (max-width: 600px) {
+    .simple-card {
+        flex: 1 1 calc(50% - 20px); /* 2 cards per row */
+    }
+    
+    .header-flip-grid {
+        gap: 16px;
+    }
+}
+
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.6s;
+    transform-style: preserve-3d;
+    cursor: pointer;
+}
+
+.flip-card:hover .flip-card-inner,
+.flip-card:focus-within .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+.flip-card-front, .flip-card-back {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    box-shadow: var(--shadow);
+    padding: 10px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 0.95rem;
+}
+
+.flip-card-front {
+    background: linear-gradient(135deg, #FFEEF3, #FFE7F0);
+    color: var(--primary-color);
+}
+
+.flip-card-back {
+    background: white;
+    transform: rotateY(180deg);
+    color: var(--text-gray);
+    font-weight: 600;
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+/* Desktop: header layout side-by-side */
+@media (min-width: 760px) {
+    .header-row { display: flex; gap: 18px; align-items: flex-start; }
+    .header-stats { width: 58%; text-align: left; }
+    .header-flip-grid { width: 42%; justify-content: flex-end; }
+    .header-flip-grid .flip-card { margin-left: 6px; }
+    /* Ensure left-stack and right-row align nicely on desktop */
+    .header-flip-grid { align-items: center; }
+}
+
+/* Lower flip-grid (chart area) — used for dashboard cards below header */
+.flip-grid {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+    padding: 12px 6px;
+    width: 100%;
+}
+
+/* Calculation Toggle Button */
+.calc-toggle-btn {
+    background-color: #D63384;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: all 0.3s ease;
+}
+
+.calc-toggle-btn:hover {
+    background-color: #b5267a;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(214, 51, 132, 0.2);
+}
+
+/* Calculation Box Container */
+.calculation-box {
+    background-color: #fff5f9;
+    border: 2px solid #D63384;
+    border-radius: 12px;
+    padding: 20px;
+    margin-top: 15px;
+    font-family: 'Poppins', sans-serif;
+}
+
+.calculation-box h3 {
+    color: #D63384;
+    font-size: 14px;
+    font-weight: 600;
+    margin: 15px 0 10px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px dotted #FF8FAB;
+}
+
+.calculation-box p, 
+.calculation-box div {
+    color: #333;
+    font-size: 13px;
+    line-height: 1.6;
+    margin: 8px 0;
+}
+
+.calculation-formula {
+    background-color: white;
+    border-left: 4px solid #D63384;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 4px;
+    font-family: 'Courier New', monospace;
+    font-size: 12px;
+    overflow-x: auto;
+}
+
+.calculation-example {
+    background-color: #ffe7f0;
+    padding: 10px 12px;
+    border-radius: 6px;
+    margin: 8px 0;
+    font-size: 12px;
+    border-left: 3px solid #FF8FAB;
+}
+
+/* Mobile responsive for calculation box */
+@media (max-width: 480px) {
+    .calc-toggle-btn {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+
+    .calculation-box {
+        padding: 15px;
+    }
+
+    .calculation-box h3 {
+        font-size: 13px;
+    }
+
+    .calculation-box p,
+    .calculation-box div {
+        font-size: 12px;
+    }
+
+    .calculation-formula {
+        font-size: 11px;
+    }
+
+    .calculation-example {
+        font-size: 11px;
+    }
 }
