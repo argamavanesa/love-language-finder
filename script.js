@@ -1,3 +1,4 @@
+
 // --- DATABASE 1: DESKRIPSI LOVE LANGUAGE (FORMAT BARU DENGAN SUB-JUDUL) ---
 const llData = {
     "Words of Affirmation": {
@@ -224,10 +225,6 @@ const students = [
     {"npm": "2406408325", "name": "Firdha Nazla Soblia", "major": "Matematika", "type": "Acts of Service", "percentages": {"Words of Affirmation": "30%", "Quality Time": "30%", "Acts of Service": "40%", "Receiving Gifts": "0%", "Physical Touch": "0%"}}
 ];
 
-// ... (Pastikan llData dan students ada di atas kode ini) ...
-
-// ... (Pastikan llData dan students tetap ada di bagian atas) ...
-
 // --- LOGIC UTAMA (FINAL RESPONSIVE) ---
 const searchBtn = document.getElementById('searchBtn');
 const npmInput = document.getElementById('npmInput');
@@ -238,9 +235,85 @@ let dashboardChart = null;
 let userPieChart = null;
 let currentMajor = "";
 let currentData = {};
+let currentMode = "dominan"; // Lock to dominan mode only
 
 document.addEventListener('DOMContentLoaded', () => {
     initDashboard(); 
+
+    // --- PAGE SWITCH LOGIC ---
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const homePage = document.getElementById('homePage');
+    const finderPage = document.getElementById('finderPage');
+
+    // ensure initial visibility: show home by default
+    if (homePage && finderPage) {
+        // show home initially (matches HTML default)
+        homePage.style.display = 'block';
+        finderPage.style.display = 'none';
+    }
+
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const page = btn.dataset.page;
+            if (page === 'home') {
+                if (homePage && finderPage) {
+                    homePage.style.display = 'block';
+                    finderPage.style.display = 'none';
+                }
+            } else {
+                if (homePage && finderPage) {
+                    homePage.style.display = 'none';
+                    finderPage.style.display = 'block';
+                }
+            }
+        });
+    });
+
+    // Chart is fixed to Bar only (radar removed per request)
+
+    // --- LOGO PREVIEW / DEFAULT LOGO ---
+    const logoImg1 = document.getElementById('logoImg1');
+    const logoImg2 = document.getElementById('logoImg2');
+    const logoUpload1 = document.getElementById('logoUpload1');
+    const logoUpload2 = document.getElementById('logoUpload2');
+
+    // Set default image for logo 1 if the file exists in project root
+    try {
+        if (logoImg1) {
+            logoImg1.src = 'LOGO HD-removebg-preview.jpg';
+            logoImg1.style.width = '100%';
+            logoImg1.style.height = '100%';
+            logoImg1.style.objectFit = 'contain';
+        }
+        if (logoImg2) {
+            logoImg2.src = 'Logo Biro Variansi.png';
+            logoImg2.style.width = '100%';
+            logoImg2.style.height = '100%';
+            logoImg2.style.objectFit = 'contain';
+        }
+    } catch (e) {
+        // ignore if image cannot be loaded
+        console.warn('Logo preview init error', e);
+    }
+
+    // When user selects a file, show preview in the placeholder
+    if (logoUpload1 && logoImg1) {
+        logoUpload1.addEventListener('change', (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            if (f) logoImg1.src = URL.createObjectURL(f);
+        });
+    }
+    if (logoUpload2 && logoImg2) {
+        logoUpload2.addEventListener('change', (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            if (f) logoImg2.src = URL.createObjectURL(f);
+        });
+    }
+
+
 });
 
 searchBtn.addEventListener('click', findStudent);
@@ -307,55 +380,115 @@ function renderUserPieChart(percentages) {
     const ctx = document.getElementById('userLoveChart').getContext('2d');
     const isMobile = window.innerWidth < 480; // Deteksi HP
 
-    const labels = Object.keys(percentages);
-    const dataValues = Object.values(percentages).map(val => parseInt(val.replace('%', '')));
+    // Create array of {label, value} and sort by value descending
+    const dataArray = Object.entries(percentages).map(([key, val]) => ({
+        label: key,
+        value: parseInt(val.replace('%', ''))
+    })).sort((a, b) => b.value - a.value);
+
+    const labels = dataArray.map(d => d.label);
+    const dataValues = dataArray.map(d => d.value);
+
+    // Pink shades from darkest to lightest
+    const pinkShades = ['#D63384', '#E667A0', '#FF8FAB', '#FFC2D1', '#FFE7F0'];
+    const backgroundColor = dataValues.map((val, idx) => pinkShades[idx % pinkShades.length]);
 
     if (userPieChart) userPieChart.destroy();
 
     userPieChart = new Chart(ctx, {
-        type: 'pie',
+        type: 'bar',
         data: {
             labels: labels,
             datasets: [{
+                label: 'Persentase (%)',
                 data: dataValues,
-                backgroundColor: ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'],
+                backgroundColor: backgroundColor,
                 borderColor: '#fff',
-                borderWidth: 2
+                borderWidth: 2,
+                borderRadius: 8
             }]
         },
         options: {
+            indexAxis: 'y', // Horizontal bar
             responsive: true,
             maintainAspectRatio: false,
-            layout: {
-                padding: {
-                    bottom: isMobile ? 10 : 0 // Tambah jarak bawah di HP
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        font: { size: isMobile ? 10 : 12, family: "'Poppins', sans-serif" },
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    grid: { color: "rgba(0,0,0,0.05)" }
+                },
+                y: {
+                    ticks: {
+                        font: { size: isMobile ? 9 : 12, family: "'Poppins', sans-serif", weight: '500' },
+                        padding: isMobile ? 8 : 12
+                    },
+                    grid: { display: false }
                 }
             },
             plugins: {
-                legend: {
-                    position: 'bottom', // Legend di bawah
-                    align: 'center',
-                    labels: { 
-                        font: { 
-                            family: "'Poppins', sans-serif", 
-                            size: isMobile ? 10 : 12, // Font kecil di HP (10px), Desktop (12px)
-                            weight: '500'
-                        }, 
-                        boxWidth: isMobile ? 10 : 15, // Kotak warna lebih kecil di HP
-                        padding: isMobile ? 10 : 20   // Jarak antar item lebih rapat di HP
-                    }
-                },
+                legend: { display: false },
                 tooltip: {
                     callbacks: {
                         label: function(context) {
-                            return ` ${context.label}: ${context.raw}%`;
+                            return ` ${context.raw}%`;
                         }
                     },
-                    bodyFont: { size: 13 }
+                    bodyFont: { size: isMobile ? 11 : 13 },
+                    padding: 10,
+                    backgroundColor: 'rgba(0,0,0,0.7)'
                 }
             }
         }
     });
+}
+
+/* Animated counter helper */
+function animateValue(id, start, end, duration) {
+    const obj = document.getElementById(id);
+    if (!obj) return;
+    const range = end - start;
+    if (range === 0) { obj.textContent = end; return; }
+    const increment = end > start ? 1 : -1;
+    const stepTime = Math.max(Math.floor(duration / Math.abs(range)), 12);
+    let current = start;
+    const timer = setInterval(() => {
+        current += increment;
+        obj.textContent = current;
+        if (current === end) clearInterval(timer);
+    }, stepTime);
+}
+
+/* Generate simple insight from data object */
+function generateInsight(dataObj, majorName, mode = "dominan") {
+    if (!dataObj || Object.keys(dataObj).length === 0) return 'Tidak ada data untuk menghasilkan insight.';
+
+    let maxKey = Object.keys(dataObj).reduce((a,b) => dataObj[a] >= dataObj[b] ? a : b);
+    let minKey = Object.keys(dataObj).reduce((a,b) => dataObj[a] <= dataObj[b] ? a : b);
+    let maxVal = dataObj[maxKey];
+    let minVal = dataObj[minKey];
+
+    if (majorName === "Semua") {
+        return `Secara keseluruhan mahasiswa Departemen Matematika FMIPA UI cenderung memiliki dominasi '<strong>${maxKey}</strong>' dengan ${maxVal} mahasiswa, sementara '<strong>${minKey}</strong>' paling sedikit dimiliki.`;
+    }
+
+    return `Mahasiswa/i jurusan ${getDisplayName(majorName)} cenderung memiliki dominasi '<strong>${maxKey}</strong>' dengan ${maxVal} mahasiswa, sementara '<strong>${minKey}</strong>' paling sedikit dimiliki.`;
+}
+
+/* Display name mapping for majors */
+function getDisplayName(major) {
+    const displayMap = {
+        "Aktuaria": "Ilmu Aktuaria",
+        "Statistika": "Statistika",
+        "Matematika": "Matematika"
+    };
+    return displayMap[major] || major;
 }
 
 // --- 2. FUNGSI DASHBOARD (BAR CHART RESPONSIVE) ---
@@ -383,14 +516,14 @@ function initDashboard() {
     const uniqueMajors = [...new Set(allMajors)].sort();
 
     const btnGlobal = document.createElement('button');
-    btnGlobal.innerText = "Semua";
+    btnGlobal.innerText = "Semua Jurusan";
     btnGlobal.className = 'tab-btn active'; 
     btnGlobal.onclick = () => { switchTab(btnGlobal, "Semua", globalStats); };
     majorTabs.appendChild(btnGlobal);
 
     uniqueMajors.forEach(major => {
         const btn = document.createElement('button');
-        btn.innerText = major;
+        btn.innerText = getDisplayName(major);
         btn.className = 'tab-btn';
         btn.onclick = () => { switchTab(btn, major, stats[major]); };
         majorTabs.appendChild(btn);
@@ -402,8 +535,12 @@ function initDashboard() {
 function switchTab(btnElement, title, data) {
     document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     btnElement.classList.add('active');
+    currentData = data;
     updateDashboardChart(title, data);
 }
+
+/* Error Bar Plugin for 95% Confidence Interval */
+
 
 function updateDashboardChart(majorName, dataObj) {
     currentMajor = majorName;
@@ -411,14 +548,12 @@ function updateDashboardChart(majorName, dataObj) {
 
     const ctx = document.getElementById('llChart').getContext('2d');
     const isMobile = window.innerWidth < 768;
-    // Ukuran font label Sumbu X dan Y
-    const fontSize = isMobile ? 9 : 12; 
+    const fontSize = isMobile ? 9 : 12;
 
-    const rawLabels = Object.keys(dataObj);
-    const dataValues = Object.values(dataObj);
+    let labels = Object.keys(dataObj);
+    let dataValues = Object.values(dataObj);
     
-    // Label Multiline Cerdas (1 Baris Desktop, 2 Baris HP)
-    const responsiveLabels = rawLabels.map(label => {
+    const responsiveLabels = labels.map(label => {
         if (!isMobile) return label;
         if (label === "Words of Affirmation") return ["Words of", "Affirmation"];
         if (label === "Quality Time") return ["Quality", "Time"];
@@ -427,18 +562,23 @@ function updateDashboardChart(majorName, dataObj) {
         if (label === "Physical Touch") return ["Physical", "Touch"];
         return label.split(" ");
     });
+    labels = responsiveLabels;
 
     if (dashboardChart) dashboardChart.destroy();
+
+    // Create gradient background
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "#D63384");
+    gradient.addColorStop(1, "#FF8FAB");
 
     dashboardChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: responsiveLabels,
+            labels: labels,
             datasets: [{
-                // Label ini tidak ditampilkan di Legend, tapi muncul di Tooltip
-                label: 'Jumlah Mahasiswa',
+                label: "Jumlah Mahasiswa",
                 data: dataValues,
-                backgroundColor: ['#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'],
+                backgroundColor: gradient,
                 borderColor: '#FFC2D1',
                 borderWidth: 2,
                 borderRadius: isMobile ? 4 : 8,
@@ -452,17 +592,18 @@ function updateDashboardChart(majorName, dataObj) {
                 x: { 
                     ticks: { 
                         font: { size: fontSize, family: "'Poppins', sans-serif" },
-                        maxRotation: 0, // Mencegah teks miring
+                        maxRotation: 0,
                         minRotation: 0
-                    } 
+                    },
+                    grid: { display: false }
                 },
                 y: { 
                     beginAtZero: true, 
-                    ticks: { stepSize: 1, font: { size: fontSize } } 
+                    ticks: { stepSize: 1, font: { size: fontSize } },
+                    grid: { color: "rgba(0,0,0,0.05)" }
                 }
             },
             plugins: {
-                // Legend di Bar Chart dimatikan karena sudah ada Label di bawah (Sumbu X)
                 legend: { display: false }, 
                 tooltip: {
                     titleFont: { size: 14 },
@@ -471,7 +612,7 @@ function updateDashboardChart(majorName, dataObj) {
                 },
                 title: {
                     display: true,
-                    text: isMobile ? `Statistik: ${majorName}` : `Statistik Love Language: ${majorName}`,
+                    text: `Dominan Love Language: ${majorName === "Semua" ? "Semua Jurusan" : getDisplayName(majorName)}`,
                     font: { size: isMobile ? 14 : 18, family: "'Poppins', sans-serif", weight: '600' },
                     color: '#D63384',
                     padding: { bottom: 20 }
@@ -479,6 +620,15 @@ function updateDashboardChart(majorName, dataObj) {
             }
         }
     });
+
+    const insightBox = document.getElementById("insightBox");
+    if (insightBox) {
+        insightBox.innerHTML = `<strong>Insight:</strong> ${generateInsight(dataObj, majorName, currentMode)}`;
+    }
+
+    // Populate calculation box
+    const calcDetails = generateCalculationDetails(majorName, dataObj, currentMode);
+    document.getElementById("calculationBox").innerHTML = calcDetails;
 }
 
 // Auto Resize Listener (Menyesuaikan ulang saat HP diputar/layar berubah)
@@ -494,17 +644,98 @@ window.addEventListener('resize', () => {
     if (currentMajor && currentData) updateDashboardChart(currentMajor, currentData);
 });
 
+/* Toggle Calculation Box */
+function toggleCalculation() {
+    const box = document.getElementById("calculationBox");
+    const btn = document.getElementById("calcToggleBtn");
+    if (box.style.display === "none") {
+        box.style.display = "block";
+        btn.textContent = "📊 Hide Calculation";
+    } else {
+        box.style.display = "none";
+        btn.textContent = "📊 Show Calculation";
+    }
+}
 
-// Auto Resize Listener
-window.addEventListener('resize', () => {
-    if (currentMajor && currentData) updateDashboardChart(currentMajor, currentData);
-});
+/* Generate Calculation Details */
+function generateCalculationDetails(majorName, dataObj, mode) {
+    return generateDominanCalculation(majorName, dataObj);
+}
 
+/* Generate Dominan Mode Calculation */
+function generateDominanCalculation(majorName, dataObj) {
+    const total = Object.values(dataObj).reduce((a, b) => a + b, 0);
+    const dominantCat = Object.keys(dataObj).reduce((a, b) => dataObj[a] > dataObj[b] ? a : b);
+    const dominantCount = dataObj[dominantCat];
+    const dominantPercent = ((dominantCount / total) * 100).toFixed(1);
 
+    let html = `
+        <h3>📌 Mode (Kategori Dominan)</h3>
+        <div class="calculation-formula">
+            Mode = kategori dengan frekuensi tertinggi
+        </div>
+        <p><strong>Definition:</strong> The love language preferred by most students in this group.</p>
+        <div class="calculation-example">
+            <strong>Distribution by category:</strong><br>
+    `;
 
+    Object.entries(dataObj).forEach(([cat, count]) => {
+        const pct = ((count / total) * 100).toFixed(1);
+        const highlight = cat === dominantCat ? ' <strong style="color: #D63384;">← DOMINANT</strong>' : '';
+        html += `${cat}: ${count} (${pct}%)${highlight}<br>`;
+    });
 
+    html += `
+            <br><strong>Result:</strong> ${dominantCat} is most preferred (${dominantCount}/${total} = ${dominantPercent}%)
+        </div>
+    `;
 
+    return html;
+}
 
+// Initialize card detail buttons: toggle description and expanded state
+function initCardDetails() {
+    document.querySelectorAll('.card-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = btn.closest('.simple-card');
+            if (!card) return;
+            const desc = card.querySelector('.card-desc');
+            const expanded = card.classList.toggle('expanded');
+            if (desc) desc.hidden = !expanded;
+            btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            btn.textContent = expanded ? 'Close' : 'Details';
+        });
+    });
+}
 
+function bindFinderCta() {
+    const cta = document.querySelector('.finder-cta');
+    const input = document.getElementById('npmInput');
+    if (!cta || !input) return;
 
+    cta.addEventListener('click', () => {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.focus({ preventScroll: true });
+    });
+}
 
+// Ensure handlers attach after DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initCardDetails();
+        bindFinderCta();
+        // Add calculation toggle button listener
+        const calcBtn = document.getElementById('calcToggleBtn');
+        if (calcBtn) {
+            calcBtn.addEventListener('click', toggleCalculation);
+        }
+    });
+} else {
+    initCardDetails();
+    bindFinderCta();
+    // Add calculation toggle button listener
+    const calcBtn = document.getElementById('calcToggleBtn');
+    if (calcBtn) {
+        calcBtn.addEventListener('click', toggleCalculation);
+    }
+}
