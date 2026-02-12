@@ -9,33 +9,93 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
+    <div class="hearts" aria-hidden="true">
+        <span class="heart"></span>
+        <span class="heart"></span>
+        <span class="heart"></span>
+        <span class="heart"></span>
+        <span class="heart"></span>
+        <span class="heart"></span>
+        <span class="heart"></span>
+        <span class="heart"></span>
+    </div>
+    <nav class="navbar topbar">
+        <div class="nav-left">
+            <label class="logo-upload">
+                <input type="file" id="logoUpload1" accept="image/*" hidden>
+                <div class="logo-placeholder"><img id="logoImg1" alt="Logo 1"/></div>
+            </label>
+            <label class="logo-upload">
+                <input type="file" id="logoUpload2" accept="image/*" hidden>
+                <div class="logo-placeholder"><img id="logoImg2" alt="Logo 2"/></div>
+            </label>
+            <div class="nav-brand-text">HMD Matematika FMIPA UI 2025</div>
+        </div>
+        <div class="nav-right">
+            <button class="nav-btn active" data-page="home">Home</button>
+            <button class="nav-btn" data-page="finder">Find Your Love Language</button>
+        </div>
+    </nav>
 
     <main class="container">
-        <header>
-            <h1>Student Love Language Finder</h1>
-            <p>Masukkan NPM untuk melihat profil lengkap & statistik angkatan.</p>
-        </header>
 
-        <div class="search-box">
-            <input type="text" id="npmInput" placeholder="Contoh: 2406344605">
-            <button id="searchBtn">Cari</button>
-        </div>
-
-        <div id="resultContainer" class="result-wrapper"></div>
-
-        <div id="dashboardContainer" class="dashboard-section">
-            <h2 class="dashboard-title">Statistik Love Language per Jurusan</h2>
-            
-            <div id="majorTabs" class="tabs-container">
-                </div>
-
-            <div class="chart-wrapper">
-                <canvas id="llChart"></canvas>
+        <!-- FINDER PAGE -->
+        <section id="finderPage" class="finder-page">
+            <div class="finder-placeholder">
+                <h2>Discover Your Love Language</h2>
+                <p>Temukan profil Love Language Anda dengan memasukkan NPM mahasiswa. Dapatkan insights mendalam tentang cara Anda menerima dan memberikan cinta dalam hubungan sosial.</p>
+                <button class="finder-cta" type="button">Mulai Pencarian</button>
             </div>
-        </div>
+
+            <div class="search-box">
+                <input type="text" id="npmInput" placeholder="Contoh: 2406344605">
+                <button id="searchBtn">Cari</button>
+            </div>
+
+            <div id="resultContainer" class="result-wrapper"></div>
+        </section>
+
+
+        <!-- HOME PAGE -->
+        <section id="homePage">
+            <header class="home-header">
+                <h1>Research Center Vol. 11: Love Language</h1>
+
+                <!-- Header description immediately under header -->
+                <div class="dashboard-desc">
+                    <p>Love language adalah cara seseorang mengekspresikan dan menerima kasih sayang. Ada lima tipe utama: Words of Affirmation, Quality Time, Acts of Service, Receiving Gifts, dan Physical Touch. Apa love language dominan kamu?</p>
+                    <p class="dashboard-desc-highlight"><strong>Jika kamu mengisi survei Research Center Volume 11, cek profil lengkapmu di halaman Find Your Love Language.</strong></p>
+                </div>
+            </header>
+
+                <div id="dashboardContainer" class="dashboard-section">
+                                        <h2 class="dashboard-title">Dashboard Love Language Departemen Matematika FMIPA UI 2025</h2>
+
+                                        <div id="majorTabs" class="tabs-container"></div>
+
+
+
+                                        <div class="dashboard-main">
+                                            <div class="dashboard-left">
+                                                <div class="chart-wrapper">
+                                                    <canvas id="llChart"></canvas>
+                                                </div>
+                                            </div>
+
+                                            <div class="dashboard-right">
+                                                <div id="insightBox" class="insight-box"></div>
+
+                                                <button id="calcToggleBtn" class="calc-toggle-btn">📊 Show Calculation</button>
+
+                                                <div id="calculationBox" class="calculation-box" style="display: none;">
+                                                    <!-- Populated by JavaScript -->
+                                                </div>
+                                            </div>
+                                        </div>
+        </section>
+
     </main>
 
     <script src="script.js"></script>
 </body>
 </html>
-
