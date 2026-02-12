@@ -1,46 +1,98 @@
-// --- DATABASE 1: DESKRIPSI LOVE LANGUAGE ---
+// --- DATABASE 1: DESKRIPSI LOVE LANGUAGE (FORMAT BARU DENGAN SUB-JUDUL) ---
 const llData = {
     "Words of Affirmation": {
         title: "🌟 Words of Affirmation",
-        overview: "Kamu sangat peka terhadap kata-kata. Ucapan apresiasi, pengakuan usaha, atau kalimat penyemangat berdampak besar bagi motivasimu.",
-        howToShow: "Kamu mengekspresikan kepedulian lewat pujian, ucapan terima kasih, dan validasi verbal.",
-        needs: ["Apresiasi yang tulus & jelas.", "Feedback positif atas usaha.", "Pengakuan verbal."],
-        recommendations: ["Lingkungan yang terbuka terhadap pujian.", "Komunikasi afirmatif dalam kelompok."],
-        sources: [{ text: "Gardner (2003) - Effort-focused praise", link: "#" }]
+        description: `
+            <div style="text-align: center; font-weight: 600; margin-bottom: 25px; color: #D63384; font-size: 1.1rem;">
+                Kamu adalah orang yang membutuhkan kata-kata positif dari orang terdekat untuk tetap semangat menjalani hari!
+            </div>
+            
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">What You Need</h3>
+            <p style="margin-bottom: 20px;">
+                Kata-kata penyemangat dari orang terdekat adalah salah satu kekuatan untuk menghadapi keterpurukan kamu. Ketika kamu berhasil menyelesaikan suatu pekerjaan atau berhasil mencapai sesuatu, pujian dari teman terdekat akan membuat kamu semakin bersemangat.
+            </p>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">Recommendation for You</h3>
+            <p>
+                Selalu optimis dengan kata-kata afirmatif ketika mengerjakan tugas bersama teman akan sangat mendorong semangat kamu dan orang terdekat kamu!
+            </p>
+        `
     },
     "Quality Time": {
         title: "⏰ Quality Time",
-        overview: "Bagi kamu, kehadiran penuh tanpa distraksi adalah segalanya. Kamu merasa terhubung saat berdiskusi atau belajar bersama dengan fokus.",
-        howToShow: "Kamu meluangkan waktu khusus, mendengarkan, dan hadir secara utuh.",
-        needs: ["Waktu khusus tanpa distraksi.", "Teman diskusi yang hadir penuh.", "Kebersamaan dalam proses."],
-        recommendations: ["Sesi belajar rutin.", "Interaksi langsung tatap muka."],
-        sources: [{ text: "ScienceDirect (2023) - Study-together groups", link: "#" }]
+        description: `
+            <div style="text-align: center; font-weight: 600; margin-bottom: 25px; color: #D63384; font-size: 1.1rem;">
+                Kamu adalah orang yang butuh kehadiran penuh dan perhatian yang tidak terbagi dari orang terdekat dalam suatu interaksi!
+            </div>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">What You Need</h3>
+            <p style="margin-bottom: 20px;">
+                Menyusun rencana bepergian dengan teman terdekat adalah salah satu sumber kesenanganmu. Tak hanya itu, sebatas obrolan santai dengan cerita kamu didengar secara saksama oleh teman terdekat akan membuat kamu merasa sangat dihargai.
+            </p>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">Recommendation for You</h3>
+            <p>
+                Belajar bersama dan menyelesaikan tugas bersama teman terdekat akan sangat menyenangkan untuk kamu lakukan!
+            </p>
+        `
     },
     "Acts of Service": {
         title: "🤝 Acts of Service",
-        overview: "Kamu merasa dihargai lewat tindakan nyata. Bantuan konkret yang meringankan beban lebih berarti daripada sekadar kata-kata manis.",
-        howToShow: "Kamu refleks membantu saat melihat orang kesulitan. Kamu suka memberi solusi praktis.",
-        needs: ["Bantuan langsung & konkret.", "Inisiatif tanpa diminta.", "Dukungan tenaga."],
-        recommendations: ["Kerja tim yang saling membantu.", "Sistem peer tutoring."],
-        sources: [{ text: "MDPI (2025) - Peer support", link: "#" }]
+        description: `
+            <div style="text-align: center; font-weight: 600; margin-bottom: 25px; color: #D63384; font-size: 1.1rem;">
+                Kamu adalah orang yang merasa dihargai ketika ada orang terdekat yang menolong kamu saat kesulitan!
+            </div>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">What You Need</h3>
+            <p style="margin-bottom: 20px;">
+                Ketika sedang kesulitan dalam belajar, kamu akan merasa sangat senang jika ada teman terdekat yang membantu menjelaskan materi kepada kamu. Begitu pun juga saat mengerjakan tugas kelompok atau project, kontribusi nyata teman yang inisiatif dan solutif akan membuat kamu merasa dihargai.
+            </p>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">Recommendation for You</h3>
+            <p>
+                Usaha kamu dalam membantu teman kamu yang sedang kesulitan akan mempererat hubungan pertemanan kamu untuk jangka waktu panjang!
+            </p>
+        `
     },
     "Receiving Gifts": {
         title: "🎁 Receiving Gifts",
-        overview: "Perhatian bagimu terasa lewat simbol. Hadiah kecil atau benda yang menunjukkan 'aku kepikiran kamu' sangat berarti.",
-        howToShow: "Kamu suka memberi hadiah kecil atau simbol kepedulian pada momen spesial.",
-        needs: ["Hadiah kecil yang personal.", "Simbol apresiasi atas usaha.", "Kejutan sederhana."],
-        recommendations: ["Apresiasi simbolis (sertifikat/hadiah kecil).", "Lingkungan yang kreatif memberi reward."],
-        sources: [{ text: "Univ Arizona - Brain science of gifts", link: "#" }]
+        description: `
+            <div style="text-align: center; font-weight: 600; margin-bottom: 25px; color: #D63384; font-size: 1.1rem;">
+                Kamu adalah orang yang merasa disayangi ketika ada orang terdekat yang memberikan hadiah atau kenangan kecil kepada kamu!
+            </div>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">What You Need</h3>
+            <p style="margin-bottom: 20px;">
+                Kamu merasa senang ketika mendapat hadiah dari teman terdekat untuk disimpan dan dikenang di kemudian hari. Kejutan kecil yang disiapkan oleh teman terdekat ketika hari spesial kamu juga berkesan untuk kamu.
+            </p>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">Recommendation for You</h3>
+            <p>
+                Teman terdekat kamu akan sangat senang dan termovitasi saat diberi pernak-pernik atau aksesoris oleh kamu untuk digunakan setiap hari!
+            </p>
+        `
     },
     "Physical Touch": {
         title: "🤍 Physical Touch",
-        overview: "Kamu merasa terhubung lewat gestur fisik yang aman seperti tos, tepukan bahu, atau jabat tangan yang menguatkan.",
-        howToShow: "Kamu menggunakan bahasa tubuh (tos, tepukan) untuk memberi semangat.",
-        needs: ["Sentuhan ringan yang pantas (tos/high-five).", "Rasa kebersamaan fisik.", "Menghormati batas kenyamanan."],
-        recommendations: ["Lingkungan hangat & tidak kaku.", "Gestur fisik pereda stres."],
-        sources: [{ text: "PMC (2024) - Affective touch", link: "#" }]
+        description: `
+            <div style="text-align: center; font-weight: 600; margin-bottom: 25px; color: #D63384; font-size: 1.1rem;">
+                Kamu adalah orang yang merasa disayangi ketika mendapat dukungan sentuhan fisik yang hangat dari orang terdekat!
+            </div>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">What You Need</h3>
+            <p style="margin-bottom: 20px;">
+                Pelukan hangat dari orang terdekat ketika kamu sedang terpuruk adalah suatu hal yang kamu butuhkan. Ketika berhasil menyelesaikan suatu pekerjaan, tepukan bahu atau jabat tangan dari teman terdekat adalah salah satu cara kamu merasa dihargai.
+            </p>
+
+            <h3 style="color: #333; font-size: 1rem; margin-bottom: 8px; border-left: 4px solid #FF8FAB; padding-left: 10px;">Recommendation for You</h3>
+            <p>
+                Mungkin tidak semuanya nyaman untuk melakukan kontak fisik, tetapi sentuhan kecil seperti tos akan membuat orang sekitar kamu merasa dihargai!
+            </p>
+        `
     }
 };
+
+
 
 // --- DATABASE 2: DATA MAHASISWA (Generated from CSV) ---
 const students = [
@@ -172,22 +224,107 @@ const students = [
     {"npm": "2406408325", "name": "Firdha Nazla Soblia", "major": "Matematika", "type": "Acts of Service", "percentages": {"Words of Affirmation": "30%", "Quality Time": "30%", "Acts of Service": "40%", "Receiving Gifts": "0%", "Physical Touch": "0%"}}
 ];
 
-// --- LOGIC ---
+// --- LOGIC UTAMA (FINAL RESPONSIVE) ---
 const searchBtn = document.getElementById('searchBtn');
 const npmInput = document.getElementById('npmInput');
 const resultContainer = document.getElementById('resultContainer');
 const majorTabs = document.getElementById('majorTabs');
-let myChart = null; // Variabel untuk menyimpan instance grafik
 
-// Init Dashboard on Load
+let dashboardChart = null; 
+let userPieChart = null;
+let currentMajor = "";
+let currentData = {};
+let currentMode = "dominan"; // Lock to dominan mode only
+
 document.addEventListener('DOMContentLoaded', () => {
-    initDashboard(); // Jalankan dashboard grafik
+    initDashboard(); 
+
+    // --- PAGE SWITCH LOGIC ---
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const homePage = document.getElementById('homePage');
+    const finderPage = document.getElementById('finderPage');
+
+    // ensure initial visibility: show home by default
+    if (homePage && finderPage) {
+        // show home initially (matches HTML default)
+        homePage.style.display = 'block';
+        finderPage.style.display = 'none';
+    }
+
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            navButtons.forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            const page = btn.dataset.page;
+            if (page === 'home') {
+                if (homePage && finderPage) {
+                    homePage.style.display = 'block';
+                    finderPage.style.display = 'none';
+                }
+            } else {
+                if (homePage && finderPage) {
+                    homePage.style.display = 'none';
+                    finderPage.style.display = 'block';
+                }
+            }
+        });
+    });
+
+    // Chart is fixed to Bar only (radar removed per request)
+
+    // --- LOGO PREVIEW / DEFAULT LOGO ---
+    const logoImg1 = document.getElementById('logoImg1');
+    const logoImg2 = document.getElementById('logoImg2');
+    const logoUpload1 = document.getElementById('logoUpload1');
+    const logoUpload2 = document.getElementById('logoUpload2');
+
+    // Set default image for logo 1 if the file exists in project root
+    try {
+        if (logoImg1) {
+            logoImg1.src = 'LOGO HD-removebg-preview.jpg';
+            logoImg1.style.width = '100%';
+            logoImg1.style.height = '100%';
+            logoImg1.style.objectFit = 'contain';
+        }
+        if (logoImg2) {
+            logoImg2.src = 'Logo Biro Variansi.png';
+            logoImg2.style.width = '100%';
+            logoImg2.style.height = '100%';
+            logoImg2.style.objectFit = 'contain';
+        }
+    } catch (e) {
+        // ignore if image cannot be loaded
+        console.warn('Logo preview init error', e);
+    }
+
+    // When user selects a file, show preview in the placeholder
+    if (logoUpload1 && logoImg1) {
+        logoUpload1.addEventListener('change', (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            if (f) logoImg1.src = URL.createObjectURL(f);
+        });
+    }
+    if (logoUpload2 && logoImg2) {
+        logoUpload2.addEventListener('change', (ev) => {
+            const f = ev.target.files && ev.target.files[0];
+            if (f) logoImg2.src = URL.createObjectURL(f);
+        });
+    }
+
+
 });
 
 searchBtn.addEventListener('click', findStudent);
 npmInput.addEventListener('keypress', (e) => { if(e.key === 'Enter') findStudent(); });
 
-// --- FUNGSI PENCARIAN (Tetap Sama) ---
+// --- 1. FUNGSI PENCARIAN (PIE CHART RESPONSIVE) ---
+// ... (Biarkan const students = [...] TETAP ADA DI SINI, JANGAN DIHAPUS) ...
+
+
+// --- LOGIC UTAMA (UPDATE TAMPILAN) ---
+// ... (Kode elemen DOM tetap sama) ...
+
 function findStudent() {
     const inputNpm = npmInput.value.trim();
     resultContainer.innerHTML = '';
@@ -207,31 +344,29 @@ function findStudent() {
         }
         const content = llData[typeKey]; 
         
-        const percentagesHTML = Object.entries(student.percentages).map(([key, val]) => `
-            <div class="progress-item">
-                <div class="progress-label"><span>${key}</span><span>${val}</span></div>
-                <div class="progress-bar-bg">
-                    <div class="progress-bar-fill" style="width: ${val}; background-color: var(--primary-color);"></div>
-                </div>
-            </div>
-        `).join('');
-
-        const needsList = content.needs.map(item => `<li>${item}</li>`).join('');
-        const recList = content.recommendations.map(item => `<li>${item}</li>`).join('');
-
+        // Inject HTML
+        // Perhatikan bagian ${content.description} tidak lagi dibungkus <p>
+        // karena di dalam datanya sudah ada tag HTML sendiri.
         resultContainer.innerHTML = `
             <div class="card">
                 <div class="student-info">
                     <h2>${student.name}</h2>
                     <span class="major">${student.major}</span>
                 </div>
+                
                 <h2 class="ll-title">${content.title}</h2>
-                <div class="progress-section">${percentagesHTML}</div>
-                <div class="section-block"><h3>Gambaran Umum</h3><p>${content.overview}</p></div>
-                <div class="section-block"><h3>Yang Kamu Butuhkan</h3><ul>${needsList}</ul></div>
-                <div class="section-block"><h3>Rekomendasi</h3><ul>${recList}</ul></div>
+                
+                <div class="user-chart-container">
+                    <canvas id="userLoveChart"></canvas>
+                </div>
+
+                <div class="section-block description-text">
+                    ${content.description}
+                </div>
             </div>
         `;
+        
+        renderUserPieChart(student.percentages);
         resultContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     } else {
@@ -239,10 +374,126 @@ function findStudent() {
     }
 }
 
-// --- FUNGSI DASHBOARD & CHART (BARU) ---
+
+function renderUserPieChart(percentages) {
+    const ctx = document.getElementById('userLoveChart').getContext('2d');
+    const isMobile = window.innerWidth < 480; // Deteksi HP
+
+    // Create array of {label, value} and sort by value descending
+    const dataArray = Object.entries(percentages).map(([key, val]) => ({
+        label: key,
+        value: parseInt(val.replace('%', ''))
+    })).sort((a, b) => b.value - a.value);
+
+    const labels = dataArray.map(d => d.label);
+    const dataValues = dataArray.map(d => d.value);
+
+    // Pink shades from darkest to lightest
+    const pinkShades = ['#D63384', '#E667A0', '#FF8FAB', '#FFC2D1', '#FFE7F0'];
+    const backgroundColor = dataValues.map((val, idx) => pinkShades[idx % pinkShades.length]);
+
+    if (userPieChart) userPieChart.destroy();
+
+    userPieChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Persentase (%)',
+                data: dataValues,
+                backgroundColor: backgroundColor,
+                borderColor: '#fff',
+                borderWidth: 2,
+                borderRadius: 8
+            }]
+        },
+        options: {
+            indexAxis: 'y', // Horizontal bar
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    max: 100,
+                    ticks: {
+                        font: { size: isMobile ? 10 : 12, family: "'Poppins', sans-serif" },
+                        callback: function(value) {
+                            return value + '%';
+                        }
+                    },
+                    grid: { color: "rgba(0,0,0,0.05)" }
+                },
+                y: {
+                    ticks: {
+                        font: { size: isMobile ? 9 : 12, family: "'Poppins', sans-serif", weight: '500' },
+                        padding: isMobile ? 8 : 12
+                    },
+                    grid: { display: false }
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return ` ${context.raw}%`;
+                        }
+                    },
+                    bodyFont: { size: isMobile ? 11 : 13 },
+                    padding: 10,
+                    backgroundColor: 'rgba(0,0,0,0.7)'
+                }
+            }
+        }
+    });
+}
+
+/* Animated counter helper */
+function animateValue(id, start, end, duration) {
+    const obj = document.getElementById(id);
+    if (!obj) return;
+    const range = end - start;
+    if (range === 0) { obj.textContent = end; return; }
+    const increment = end > start ? 1 : -1;
+    const stepTime = Math.max(Math.floor(duration / Math.abs(range)), 12);
+    let current = start;
+    const timer = setInterval(() => {
+        current += increment;
+        obj.textContent = current;
+        if (current === end) clearInterval(timer);
+    }, stepTime);
+}
+
+/* Generate simple insight from data object */
+function generateInsight(dataObj, majorName, mode = "dominan") {
+    if (!dataObj || Object.keys(dataObj).length === 0) return 'Tidak ada data untuk menghasilkan insight.';
+
+    let maxKey = Object.keys(dataObj).reduce((a,b) => dataObj[a] >= dataObj[b] ? a : b);
+    let minKey = Object.keys(dataObj).reduce((a,b) => dataObj[a] <= dataObj[b] ? a : b);
+    let maxVal = dataObj[maxKey];
+    let minVal = dataObj[minKey];
+
+    if (majorName === "Semua") {
+        return `Secara keseluruhan mahasiswa Departemen Matematika FMIPA UI cenderung memiliki dominasi '<strong>${maxKey}</strong>' dengan ${maxVal} mahasiswa, sementara '<strong>${minKey}</strong>' paling sedikit dimiliki.`;
+    }
+
+    return `Mahasiswa/i jurusan ${getDisplayName(majorName)} cenderung memiliki dominasi '<strong>${maxKey}</strong>' dengan ${maxVal} mahasiswa, sementara '<strong>${minKey}</strong>' paling sedikit dimiliki.`;
+}
+
+/* Display name mapping for majors */
+function getDisplayName(major) {
+    const displayMap = {
+        "Aktuaria": "Ilmu Aktuaria",
+        "Statistika": "Statistika",
+        "Matematika": "Matematika"
+    };
+    return displayMap[major] || major;
+}
+
+// --- 2. FUNGSI DASHBOARD (BAR CHART RESPONSIVE) ---
 function initDashboard() {
-    // 1. Hitung Statistik per Jurusan
     const stats = {};
+    const globalStats = { "Words of Affirmation": 0, "Quality Time": 0, "Acts of Service": 0, "Receiving Gifts": 0, "Physical Touch": 0 };
     const allMajors = [];
 
     students.forEach(s => {
@@ -253,62 +504,56 @@ function initDashboard() {
             stats[major] = { "Words of Affirmation": 0, "Quality Time": 0, "Acts of Service": 0, "Receiving Gifts": 0, "Physical Touch": 0 };
             allMajors.push(major);
         }
-        // Normalisasi nama tipe love language agar cocok dengan key
+        
         let cleanType = Object.keys(stats[major]).find(k => k.toLowerCase() === type.toLowerCase());
-        if(cleanType) stats[major][cleanType]++;
+        if(cleanType) {
+            stats[major][cleanType]++;     
+            globalStats[cleanType]++;      
+        }
     });
 
-    // 2. Buat Tab Tombol Jurusan
-    // Hapus duplikat jurusan jika ada
     const uniqueMajors = [...new Set(allMajors)].sort();
-    
-    uniqueMajors.forEach((major, index) => {
+
+    const btnGlobal = document.createElement('button');
+    btnGlobal.innerText = "Semua Jurusan";
+    btnGlobal.className = 'tab-btn active'; 
+    btnGlobal.onclick = () => { switchTab(btnGlobal, "Semua", globalStats); };
+    majorTabs.appendChild(btnGlobal);
+
+    uniqueMajors.forEach(major => {
         const btn = document.createElement('button');
-        btn.innerText = major;
+        btn.innerText = getDisplayName(major);
         btn.className = 'tab-btn';
-        if (index === 0) btn.classList.add('active'); // Tombol pertama aktif default
-        
-        btn.onclick = () => {
-            // Ganti kelas aktif
-            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            // Update Grafik
-            updateChart(major, stats[major]);
-        };
+        btn.onclick = () => { switchTab(btn, major, stats[major]); };
         majorTabs.appendChild(btn);
     });
 
-    // 3. Render Grafik Pertama Kali (Jurusan Pertama)
-    if (uniqueMajors.length > 0) {
-        updateChart(uniqueMajors[0], stats[uniqueMajors[0]]);
-    }
+    updateDashboardChart("Semua", globalStats);
 }
 
-// Variabel global untuk menyimpan data terakhir agar bisa di-render ulang saat resize
-let currentMajor = "";
-let currentData = {};
+function switchTab(btnElement, title, data) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    btnElement.classList.add('active');
+    currentData = data;
+    updateDashboardChart(title, data);
+}
 
-function updateChart(majorName, dataObj) {
-    // Simpan data saat ini untuk keperluan resize
+/* Error Bar Plugin for 95% Confidence Interval */
+
+
+function updateDashboardChart(majorName, dataObj) {
     currentMajor = majorName;
     currentData = dataObj;
 
     const ctx = document.getElementById('llChart').getContext('2d');
+    const isMobile = window.innerWidth < 768;
+    const fontSize = isMobile ? 9 : 12;
+
+    let labels = Object.keys(dataObj);
+    let dataValues = Object.values(dataObj);
     
-    // 1. DETEKSI UKURAN LAYAR (RESPONSIVE LOGIC)
-    const isMobile = window.innerWidth < 768; // Anggap HP jika lebar < 768px
-
-    // 2. TENTUKAN STYLE BERDASARKAN DEVICE
-    const fontSize = isMobile ? 10 : 13; // Font kecil di HP, besar di Desktop
-    
-    // 3. OLAH LABEL (1 Baris untuk Desktop, 2 Baris untuk HP)
-    const rawLabels = Object.keys(dataObj);
-    const dataValues = Object.values(dataObj);
-
-    const responsiveLabels = rawLabels.map(label => {
-        if (!isMobile) return label; // Desktop: Tetap 1 baris ("Words of Affirmation")
-
-        // Mobile: Pecah jadi 2 baris
+    const responsiveLabels = labels.map(label => {
+        if (!isMobile) return label;
         if (label === "Words of Affirmation") return ["Words of", "Affirmation"];
         if (label === "Quality Time") return ["Quality", "Time"];
         if (label === "Acts of Service") return ["Acts of", "Service"];
@@ -316,57 +561,49 @@ function updateChart(majorName, dataObj) {
         if (label === "Physical Touch") return ["Physical", "Touch"];
         return label.split(" ");
     });
+    labels = responsiveLabels;
 
-    // Hancurkan grafik lama
-    if (myChart) {
-        myChart.destroy();
-    }
+    if (dashboardChart) dashboardChart.destroy();
 
-    // Buat Grafik Baru
-    myChart = new Chart(ctx, {
+    // Create gradient background
+    const gradient = ctx.createLinearGradient(0, 0, 0, 400);
+    gradient.addColorStop(0, "#D63384");
+    gradient.addColorStop(1, "#FF8FAB");
+
+    dashboardChart = new Chart(ctx, {
         type: 'bar',
         data: {
-            labels: responsiveLabels,
+            labels: labels,
             datasets: [{
-                label: `Jumlah Mahasiswa`,
+                label: "Jumlah Mahasiswa",
                 data: dataValues,
-                backgroundColor: [
-                    '#FFADAD', '#FFD6A5', '#FDFFB6', '#CAFFBF', '#9BF6FF'
-                ],
+                backgroundColor: gradient,
                 borderColor: '#FFC2D1',
                 borderWidth: 2,
-                borderRadius: isMobile ? 6 : 10, // Bar lebih kotak di HP
-                barPercentage: isMobile ? 0.7 : 0.6 // Bar lebih gemuk di HP biar mudah dilihat
+                borderRadius: isMobile ? 4 : 8,
+                barPercentage: isMobile ? 0.7 : 0.6
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: false,
-            animation: {
-                duration: 500 // Animasi lebih cepat biar responsif
-            },
             scales: {
-                x: {
-                    ticks: {
-                        font: {
-                            size: fontSize,
-                            family: "'Poppins', sans-serif"
-                        },
-                        autoSkip: false,
+                x: { 
+                    ticks: { 
+                        font: { size: fontSize, family: "'Poppins', sans-serif" },
                         maxRotation: 0,
                         minRotation: 0
-                    }
+                    },
+                    grid: { display: false }
                 },
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1,
-                        font: { size: fontSize, family: "'Poppins', sans-serif" }
-                    }
+                y: { 
+                    beginAtZero: true, 
+                    ticks: { stepSize: 1, font: { size: fontSize } },
+                    grid: { color: "rgba(0,0,0,0.05)" }
                 }
             },
             plugins: {
-                legend: { display: false },
+                legend: { display: false }, 
                 tooltip: {
                     titleFont: { size: 14 },
                     bodyFont: { size: 14 },
@@ -374,27 +611,130 @@ function updateChart(majorName, dataObj) {
                 },
                 title: {
                     display: true,
-                    text: isMobile ? `Distribusi: ${majorName}` : `Statistika Love Language Jurusan ${majorName}`,
-                    font: {
-                        size: isMobile ? 14 : 18, // Judul lebih besar di Desktop
-                        family: "'Poppins', sans-serif",
-                        weight: '600'
-                    },
+                    text: `Dominan Love Language: ${majorName === "Semua" ? "Semua Jurusan" : getDisplayName(majorName)}`,
+                    font: { size: isMobile ? 14 : 18, family: "'Poppins', sans-serif", weight: '600' },
                     color: '#D63384',
                     padding: { bottom: 20 }
                 }
             }
         }
     });
+
+    const insightBox = document.getElementById("insightBox");
+    if (insightBox) {
+        insightBox.innerHTML = `<strong>Insight:</strong> ${generateInsight(dataObj, majorName, currentMode)}`;
+    }
+
+    // Populate calculation box
+    const calcDetails = generateCalculationDetails(majorName, dataObj, currentMode);
+    document.getElementById("calculationBox").innerHTML = calcDetails;
 }
 
-// --- EVENT LISTENER UNTUK RESIZE ---
-// Ini agar saat layar diputar (landscape/portrait) atau browser di-resize, grafik menyesuaikan diri
+// Auto Resize Listener (Menyesuaikan ulang saat HP diputar/layar berubah)
 window.addEventListener('resize', () => {
-    if (currentMajor && currentData) {
-        // Panggil ulang fungsi updateChart dengan data terakhir
-        updateChart(currentMajor, currentData);
+    // Reload pie chart user jika ada data student yang sedang aktif
+    const inputNpm = document.getElementById('npmInput').value.trim();
+    if(inputNpm && students.find(s => s.npm === inputNpm)) {
+        // Kita biarkan user mencari ulang untuk refresh pie chart agar tidak glitchy,
+        // atau biarkan responsif bawaan chart.js bekerja.
     }
+    
+    // Reload dashboard chart
+    if (currentMajor && currentData) updateDashboardChart(currentMajor, currentData);
 });
 
+/* Toggle Calculation Box */
+function toggleCalculation() {
+    const box = document.getElementById("calculationBox");
+    const btn = document.getElementById("calcToggleBtn");
+    if (box.style.display === "none") {
+        box.style.display = "block";
+        btn.textContent = "📊 Hide Calculation";
+    } else {
+        box.style.display = "none";
+        btn.textContent = "📊 Show Calculation";
+    }
+}
 
+/* Generate Calculation Details */
+function generateCalculationDetails(majorName, dataObj, mode) {
+    return generateDominanCalculation(majorName, dataObj);
+}
+
+/* Generate Dominan Mode Calculation */
+function generateDominanCalculation(majorName, dataObj) {
+    const total = Object.values(dataObj).reduce((a, b) => a + b, 0);
+    const dominantCat = Object.keys(dataObj).reduce((a, b) => dataObj[a] > dataObj[b] ? a : b);
+    const dominantCount = dataObj[dominantCat];
+    const dominantPercent = ((dominantCount / total) * 100).toFixed(1);
+
+    let html = `
+        <h3>📌 Mode (Kategori Dominan)</h3>
+        <div class="calculation-formula">
+            Mode = kategori dengan frekuensi tertinggi
+        </div>
+        <p><strong>Definition:</strong> The love language preferred by most students in this group.</p>
+        <div class="calculation-example">
+            <strong>Distribution by category:</strong><br>
+    `;
+
+    Object.entries(dataObj).forEach(([cat, count]) => {
+        const pct = ((count / total) * 100).toFixed(1);
+        const highlight = cat === dominantCat ? ' <strong style="color: #D63384;">← DOMINANT</strong>' : '';
+        html += `${cat}: ${count} (${pct}%)${highlight}<br>`;
+    });
+
+    html += `
+            <br><strong>Result:</strong> ${dominantCat} is most preferred (${dominantCount}/${total} = ${dominantPercent}%)
+        </div>
+    `;
+
+    return html;
+}
+
+// Initialize card detail buttons: toggle description and expanded state
+function initCardDetails() {
+    document.querySelectorAll('.card-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            const card = btn.closest('.simple-card');
+            if (!card) return;
+            const desc = card.querySelector('.card-desc');
+            const expanded = card.classList.toggle('expanded');
+            if (desc) desc.hidden = !expanded;
+            btn.setAttribute('aria-expanded', expanded ? 'true' : 'false');
+            btn.textContent = expanded ? 'Close' : 'Details';
+        });
+    });
+}
+
+function bindFinderCta() {
+    const cta = document.querySelector('.finder-cta');
+    const input = document.getElementById('npmInput');
+    if (!cta || !input) return;
+
+    cta.addEventListener('click', () => {
+        input.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        input.focus({ preventScroll: true });
+    });
+}
+
+// Ensure handlers attach after DOM ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => {
+        initCardDetails();
+        bindFinderCta();
+        // Add calculation toggle button listener
+        const calcBtn = document.getElementById('calcToggleBtn');
+        if (calcBtn) {
+            calcBtn.addEventListener('click', toggleCalculation);
+        }
+    });
+} else {
+    initCardDetails();
+    bindFinderCta();
+    // Add calculation toggle button listener
+    const calcBtn = document.getElementById('calcToggleBtn');
+    if (calcBtn) {
+        calcBtn.addEventListener('click', toggleCalculation);
+    }
+}
